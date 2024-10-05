@@ -4,10 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anime Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="container">
+    <header class="header text-center">
+      <h1 class="main-title">Naruto Quiz</h1>
+      <p class="description">Test your ninja knowledge! See if you have what it takes to become a true Hokage by answering these Naruto-themed questions.</p>
+    </header>
   
+    <section id="quiz">
+      <h2 id="question" class="text-center">Who is Naruto's mentor?</h2>
+  
+      <div class="input-wrapper">
+        <input type="radio" name="naruto" id="option-1">
+        <label id="option-one-el" class="answer-choice" for="option-1">Kakashi Hatake</label>
+      </div>
+      <div class="input-wrapper">
+        <input type="radio" name="naruto" id="option-2">
+        <label id="option-two-el" class="answer-choice" for="option-2">Jiraiya</label>
+      </div>
+      <div class="input-wrapper">
+        <input type="radio" name="naruto" id="option-3">
+        <label id="option-3-el" class="answer-choice" for="option-3">Iruka</label>
+      </div>
+      <div class="input-wrapper">
+        <input type="radio" name="naruto" id="option-4">
+        <label id="option-4-el" class="answer-choice" for="option-4">Might Guy</label>
+      </div>
+      
+      <div class="button-container text-center">
+        <button id="btn-submit">Submit</button>
+      </div>
+
+      <p class="question-tracker text-center">Question 1 of 20</p>
+    </section>
+  </div>
+ 
+
   <script src="script.js"></script>
 </body>
 </html>
