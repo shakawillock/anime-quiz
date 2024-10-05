@@ -17,8 +17,12 @@ h2 {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .text-center {
@@ -58,24 +62,23 @@ h2 {
 
 /* Section: Quiz */
 #quiz {
-  max-width: 400px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 #question {
   color: #ffffff;
+  font-size: 1.5rem;
 }
 
 .input-wrapper {
   margin-bottom: 1em;
-  max-width: 250px;
-  margin: 0 auto 1em auto;
 }
 
 .answer-choice {
   color: #00bfff;
 }
 
-.question-tracker {
+#question-tracker {
   color: #d3d3d3;
 }
