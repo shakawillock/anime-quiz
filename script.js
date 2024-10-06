@@ -11,6 +11,7 @@ const questionTrackerEl = document.getElementById("question-tracker");
 
 let currentIndex = 0;
 let questionNumber = 1;
+let score = 0;
 
 const quiz = {
   questions: [
@@ -166,22 +167,30 @@ buttonEl.addEventListener('click', function() {
 });
 
 function currentQuizQuestion() {
-  questionEl.textContent = quiz.questions[currentIndex].name;
+  
 
-  for (let i = 0; i < options.length; i++) {
-    options[i].textContent = quiz.questions[currentIndex].answerChoices[i]
-    radioButtons[i].value = quiz.questions[currentIndex].answerChoices[i];
-   }
+  if (currentIndex <= 19) {
+    questionEl.textContent = quiz.questions[currentIndex].name;
+
+    for (let i = 0; i < options.length; i++) {
+      options[i].textContent = quiz.questions[currentIndex].answerChoices[i]
+      radioButtons[i].value = quiz.questions[currentIndex].answerChoices[i];
+     }
+  }
 }
+
 
 function updateQuestionNumber() {
   if (questionNumber < 20) {
     questionNumber++;
+  } else {
+    displayScoreMessage(score);
   }
 }
 
 function updateIndexNumber() {
-  if (currentIndex < quiz.questions.length - 1) {
+  console.log(currentIndex)
+  if (currentIndex <= quiz.questions.length - 1) {
     currentIndex++;
   }
 }
@@ -189,6 +198,7 @@ function updateIndexNumber() {
 function checkAnswer(userAnswer) {
   if (userAnswer === quiz.questions[currentIndex].correctAnswer) {
     console.log("Correct");
+    console.log(updateScore());
   } else {
     console.log("Incorrect");
   }
@@ -206,4 +216,19 @@ function showErrorMessage() {
     para.textContent = "";
     quizEl.insertBefore(para, quizEl.firstChild);
   }, 2000)
+}
+
+function updateScore() {
+  score++;
+  return score;
+}
+
+function displayScoreMessage(score) {
+  const h2El = document.createElement("h2");
+  h2El.classList.add("text-center", "text-color-white");
+  h2El.textContent = `You scored ${score} out of 20!`;
+
+  quizEl.innerHTML = "";
+
+  quizEl.append(h2El);
 }
