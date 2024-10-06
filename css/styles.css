@@ -29,6 +29,10 @@ h2 {
   text-align: center;
 }
 
+.text-color-white {
+  color: #ffffff;
+}
+
 #btn-submit {
   display: inline-block;
   color: #4169e1;
@@ -66,9 +70,13 @@ h2 {
   margin: 0 auto;
 }
 
+.error-message {
+  color: #ff4c4c;
+}
+
 #question {
-  color: #ffffff;
   font-size: 1.5rem;
+  max-width: 400px;
 }
 
 .input-wrapper {
