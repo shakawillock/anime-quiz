@@ -19,6 +19,7 @@ h2 {
 img {
   max-width: 100%;
   border-radius: 8px;
+  width: 600px;
 }
 
 .container {
@@ -39,10 +40,11 @@ img {
   color: #ffffff;
 }
 
+#btn-restart,
 #btn-submit {
   display: inline-block;
-  color: #4169e1;
   background-color: #ffffff;
+  color: #4169e1;
   border: none;
   border-radius: 5px;
   padding: 1em 3em;
@@ -52,7 +54,8 @@ img {
   cursor: pointer;
 }
 
-#btn-submit:hover {
+#btn-submit:hover,
+#btn-restart:hover {
   background-color: #191970;
   color: #87CEEB;
 }
