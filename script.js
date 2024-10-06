@@ -167,8 +167,6 @@ buttonEl.addEventListener('click', function() {
 });
 
 function currentQuizQuestion() {
-  
-
   if (currentIndex <= 19) {
     questionEl.textContent = quiz.questions[currentIndex].name;
 
@@ -179,7 +177,6 @@ function currentQuizQuestion() {
   }
 }
 
-
 function updateQuestionNumber() {
   if (questionNumber < 20) {
     questionNumber++;
@@ -189,7 +186,6 @@ function updateQuestionNumber() {
 }
 
 function updateIndexNumber() {
-  console.log(currentIndex)
   if (currentIndex <= quiz.questions.length - 1) {
     currentIndex++;
   }
@@ -197,10 +193,7 @@ function updateIndexNumber() {
 
 function checkAnswer(userAnswer) {
   if (userAnswer === quiz.questions[currentIndex].correctAnswer) {
-    console.log("Correct");
-    console.log(updateScore());
-  } else {
-    console.log("Incorrect");
+    updateScore();
   }
 }
 
@@ -225,10 +218,39 @@ function updateScore() {
 
 function displayScoreMessage(score) {
   const h2El = document.createElement("h2");
+  const para = createParagraph();
+  const img = createImage();
+
+
   h2El.classList.add("text-center", "text-color-white");
   h2El.textContent = `You scored ${score} out of 20!`;
 
   quizEl.innerHTML = "";
 
-  quizEl.append(h2El);
+  quizEl.append(h2El, para, img);
+}
+
+function createImage() {
+  const image = document.createElement("img");
+
+  if (score === 20) {
+    image.src = "images/kaguya.webp";
+  } else if (score <= 5) {
+    image.src = "images/kiba.webp";
+  }
+
+  return image;
+}
+
+function createParagraph() {
+  const paragraph = document.createElement("p");
+  paragraph.classList.add("text-center", "text-color-white");
+
+  if (score === 20) {
+    paragraph.textContent = "You Have Achieved God Mode!";
+  } else if (score <= 5) {
+    paragraph.textContent = "At least you tried";
+  }
+
+  return paragraph;
 }
