@@ -163,7 +163,7 @@ buttonEl.addEventListener('click', function() {
     showErrorMessage();
   }
 
-  questionTrackerEl.textContent = `Question ${questionNumber} of 20`
+  questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
 });
 
 function currentQuizQuestion() {
@@ -217,17 +217,14 @@ function updateScore() {
 }
 
 function displayScoreMessage(score) {
-  const h2El = document.createElement("h2");
-  const para = createParagraph();
-  const img = createImage();
-
-
-  h2El.classList.add("text-center", "text-color-white");
-  h2El.textContent = `You scored ${score} out of 20!`;
+  const h2Heading = createScoreHeading(score);
+  const paragraph = createParagraph();
+  const image = createImage();
+  const button = createRestartButton();
 
   quizEl.innerHTML = "";
 
-  quizEl.append(h2El, para, img);
+  quizEl.append(h2Heading, paragraph, image, button);
 }
 
 function createImage() {
@@ -242,6 +239,15 @@ function createImage() {
   return image;
 }
 
+function createScoreHeading(score) {
+  const h2Element = document.createElement("h2");
+
+  h2Element.classList.add("text-center", "text-color-white");
+  h2Element.textContent = `You scored ${score} out of 20!`;
+
+  return h2Element;
+}
+
 function createParagraph() {
   const paragraph = document.createElement("p");
   paragraph.classList.add("text-center", "text-color-white");
@@ -254,3 +260,19 @@ function createParagraph() {
 
   return paragraph;
 }
+
+function createRestartButton() {
+  const buttonContainer = document.createElement("div");
+  const button = document.createElement("button");
+
+  buttonContainer.classList.add("text-center", "text-color-white");
+
+  button.id = "btn-restart";
+  button.textContent = "Restart Quiz";
+
+  buttonContainer.appendChild(button);
+
+  return buttonContainer;
+}
+
+console.log(createRestartButton());
