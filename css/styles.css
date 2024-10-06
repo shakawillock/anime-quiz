@@ -16,6 +16,11 @@ h2 {
   font-weight: normal;
 }
 
+img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
