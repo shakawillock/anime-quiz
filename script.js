@@ -1,16 +1,12 @@
+const quizEl = document.getElementById("quiz");
 const questionEl = document.getElementById("question");
-
 const radioButtons = document.getElementsByName("naruto");
-
 const optionOne = document.getElementById("option-one");
 const optionTwo = document.getElementById("option-two");
 const optionThree = document.getElementById("option-three");
 const optionFour = document.getElementById("option-four");
-
 const options = [optionOne, optionTwo, optionThree, optionFour];
-
 const buttonEl = document.getElementById("btn-submit");
-
 const questionTrackerEl = document.getElementById("question-tracker");
 
 let currentIndex = 0;
@@ -146,18 +142,25 @@ window.addEventListener("load", function() {
 });
 
 buttonEl.addEventListener('click', function() {
-  currentIndex++;
-  questionNumber++;
+  let userAnswer;
+  let radioButtonSelected = false;
 
-  currentQuizQuestion();
-  // for (let i = 0; i < radioButtons.length; i++) {
-  //   console.log(radioButtons[i].checked)
+  for (let i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      radioButtonSelected = true
+      userAnswer = radioButtons[i].value;
+      radioButtons[i].checked = false;
+    }
+  }
 
-  //   if (radioButtons[i].checked) {
-  //     console.log('A Radio Button is checked!')
-  //     console.log(radioButtons[i])
-  //   }
-  // }
+  if (radioButtonSelected) {
+    checkAnswer(userAnswer);
+    updateQuestionNumber();
+    updateIndexNumber();
+    currentQuizQuestion();
+  } else {
+    showErrorMessage();
+  }
 
   questionTrackerEl.textContent = `Question ${questionNumber} of 20`
 });
@@ -168,7 +171,39 @@ function currentQuizQuestion() {
   for (let i = 0; i < options.length; i++) {
     options[i].textContent = quiz.questions[currentIndex].answerChoices[i]
     radioButtons[i].value = quiz.questions[currentIndex].answerChoices[i];
-    console.log(radioButtons[i]);
    }
+}
 
+function updateQuestionNumber() {
+  if (questionNumber < 20) {
+    questionNumber++;
+  }
+}
+
+function updateIndexNumber() {
+  if (currentIndex < quiz.questions.length - 1) {
+    currentIndex++;
+  }
+}
+
+function checkAnswer(userAnswer) {
+  if (userAnswer === quiz.questions[currentIndex].correctAnswer) {
+    console.log("Correct");
+  } else {
+    console.log("Incorrect");
+  }
+}
+
+function showErrorMessage() {
+  const para = document.createElement("p");
+  para.textContent = "Please select a choice first!";
+  para.classList.add("error-message","text-center", "text-color-white");
+
+  quizEl.insertBefore(para, quizEl.firstChild);
+
+
+  setTimeout(function() {
+    para.textContent = "";
+    quizEl.insertBefore(para, quizEl.firstChild);
+  }, 2000)
 }
