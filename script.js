@@ -1,6 +1,6 @@
 const quizEl = document.getElementById("quiz");
-const radioButtons = document.getElementsByName("naruto");
 const quizElHtml = quizEl.innerHTML;
+const radioButtons = getDOMElements().radioButtons;
 
 let currentIndex = 0;
 let questionNumber = 1;
@@ -152,6 +152,28 @@ function currentQuizQuestion(questionName) {
   }
 }
 
+function submitAnswerChoice() {
+  let userAnswer;
+  let radioButtonSelected = false;
+
+  for (let i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      radioButtonSelected = true
+      userAnswer = radioButtons[i].value;
+      radioButtons[i].checked = false;
+    }
+  }
+
+  if (radioButtonSelected) {
+    checkAnswer(userAnswer);
+    updateQuestionNumber();
+    updateIndexNumber();
+    currentQuizQuestion(getDOMElements().questionEl);
+  } else {
+      showErrorMessage();
+  }
+}
+
 function updateQuestionNumber() {
   if (questionNumber < 20) {
     questionNumber++;
@@ -174,16 +196,13 @@ function checkAnswer(userAnswer) {
 }
 
 function showErrorMessage() {
-  const para = document.createElement("p");
-  para.textContent = "Please select a choice first!";
-  para.classList.add("error-message","text-center", "text-color-white");
-
-  quizEl.insertBefore(para, quizEl.firstChild);
+  const errorMessage = document.getElementById("error-message");
+  errorMessage.textContent = "Please select a choice first!";
 
   setTimeout(function() {
-    para.textContent = "";
-    quizEl.insertBefore(para, quizEl.firstChild);
-  }, 2000)
+    errorMessage.textContent = "";
+    quizEl.insertBefore(errorMessage, quizEl.firstChild);
+  }, 1000)
 }
 
 function updateScore() {
@@ -278,28 +297,6 @@ function getDOMElements() {
   const buttonEl = document.getElementById("btn-submit");
 
   return {quizEl, questionEl, questionTrackerEl, options, radioButtons, buttonEl}
-}
-
-function submitAnswerChoice() {
-  let userAnswer;
-  let radioButtonSelected = false;
-
-  for (let i = 0; i < radioButtons.length; i++) {
-    if (radioButtons[i].checked) {
-      radioButtonSelected = true
-      userAnswer = radioButtons[i].value;
-      radioButtons[i].checked = false;
-    }
-  }
-
-  if (radioButtonSelected) {
-    checkAnswer(userAnswer);
-    updateQuestionNumber();
-    updateIndexNumber();
-    currentQuizQuestion(getDOMElements().questionEl);
-  } else {
-    showErrorMessage();
-  }
 }
 
 function updateQuestionTracker() {
