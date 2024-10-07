@@ -1,17 +1,5 @@
 const quizEl = document.getElementById("quiz");
-// const questionEl = document.getElementById("question");
 const radioButtons = document.getElementsByName("naruto");
-
-// const optionOne = document.getElementById("option-one");
-// const optionTwo = document.getElementById("option-two");
-// const optionThree = document.getElementById("option-three");
-// const optionFour = document.getElementById("option-four");
-// const options = [optionOne, optionTwo, optionThree, optionFour];
-
-const buttonEl = document.getElementById("btn-submit");
-// const questionTrackerEl = document.getElementById("question-tracker");
-const questionTrackerEl = getDOMElements().questionTrackerEl;
-// const questionEl = getDOMElements().questionEl;
 const quizElHtml = quizEl.innerHTML;
 
 let currentIndex = 0;
@@ -142,56 +130,13 @@ const quiz = {
   ]
 };
 
-window.addEventListener("load", function() {
-  currentQuizQuestion(getDOMElements().questionEl);
-  // questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
-  // getDOMElements().questionTrackerEl
-});
-
+window.addEventListener("load", startQuiz);
 getDOMElements().buttonEl.addEventListener("click", submitAnswerChoice);
 
-// Original Button
-
-// buttonEl.addEventListener('click', function() {
-//   console.log("Clicked!")
-//   let userAnswer;
-//   let radioButtonSelected = false;
-
-//   for (let i = 0; i < radioButtons.length; i++) {
-//     if (radioButtons[i].checked) {
-//       radioButtonSelected = true
-//       userAnswer = radioButtons[i].value;
-//       radioButtons[i].checked = false;
-//     }
-//   }
-
-//   if (radioButtonSelected) {
-//     checkAnswer(userAnswer);
-//     updateQuestionNumber();
-//     updateIndexNumber();
-//     currentQuizQuestion();
-//   } else {
-//     showErrorMessage();
-//   }
-
-//   questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
-// });
-
-/*  Original currentQuizQuestion Function   */
-
-// function currentQuizQuestion(questionName) {
-//   if (currentIndex <= quiz.questions.length - 1) {
-//     questionEl.textContent = quiz.questions[currentIndex].name;
-
-//     for (let i = 0; i < options.length; i++) {
-//       options[i].textContent = quiz.questions[currentIndex].answerChoices[i];
-//       radioButtons[i].value = quiz.questions[currentIndex].answerChoices[i];
-//       radioButtons[i].checked = false;
-//      }
-//   }
-// }
-
-/*  Original currentQuizQuestion Function   */
+function startQuiz() {
+  currentQuizQuestion(getDOMElements().questionEl);
+  updateQuestionTracker();
+}
 
 function currentQuizQuestion(questionName) {
   let options = getDOMElements().options;
@@ -210,6 +155,7 @@ function currentQuizQuestion(questionName) {
 function updateQuestionNumber() {
   if (questionNumber < 20) {
     questionNumber++;
+    updateQuestionTracker();
   } else {
     displayScoreMessage(score);
   }
@@ -305,33 +251,15 @@ function createRestartButton() {
 }
 
 function restartQuiz() {
+  quizEl.innerHTML = quizElHtml;
+
   currentIndex = 0;
   questionNumber = 1;
   score = 0;
 
-  quizEl.innerHTML = quizElHtml;
-
-  // const optionOne = document.getElementById("option-one");
-  // const optionTwo = document.getElementById("option-two");
-  // const optionThree = document.getElementById("option-three");
-  // const optionFour = document.getElementById("option-four");
-
-  const optionOne = getDOMElements().optionOne;
-  const optionTwo = getDOMElements().optionTwo;
-  const optionThree = getDOMElements().optionThree;
-  const optionFour = getDOMElements().optionFour;
-  const options = getDOMElements().options;
-
-  // options.length = 0
-  options.push(optionOne, optionTwo, optionThree, optionFour)
-  const radioButtons = document.getElementsByName("naruto");
-
- 
  getDOMElements().buttonEl.addEventListener("click", submitAnswerChoice);
  currentQuizQuestion(getDOMElements().questionEl);
-
- getDOMElements().questionTrackerEl = `Question ${questionNumber} of 20`;
-//  questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
+ updateQuestionTracker();
 }
 
 function getDOMElements() {
@@ -344,7 +272,6 @@ function getDOMElements() {
   const optionFour = document.getElementById("option-four");
   const options = [];
 
-  // options.length = 0
   options.push(optionOne, optionTwo, optionThree, optionFour)
 
   const radioButtons = document.getElementsByName("naruto");
@@ -373,10 +300,9 @@ function submitAnswerChoice() {
   } else {
     showErrorMessage();
   }
-
-  questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
-  // console.log(getDOMElements().questionTrackerEl.textContent);
-  // getDOMElements().questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
 }
 
-
+function updateQuestionTracker() {
+    let questionTrackerEl = getDOMElements().questionTrackerEl;
+    questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
+}
