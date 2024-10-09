@@ -32,6 +32,11 @@ img {
   padding: 0 .5em;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
 .text-center {
   text-align: center;
 }
@@ -88,8 +93,6 @@ img {
   color: #87CEEB;
 }
 
-
-
 /* Header */
 .main-title {
   color: #ff6b00;
@@ -129,4 +132,15 @@ img {
 
 #question-tracker {
   color: #d3d3d3;
+}
+
+@media (max-width: 600px) {
+  .btn-difficulty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    margin-right: 0;
+    width: 170px;
+  }
 }
