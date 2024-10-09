@@ -144,11 +144,10 @@ const beginnerQuiz = {
 const intermediateQuiz = {
   questions: [
     {
-      name: "Who was the first member of Team 7 to become a Chunin?",
-      answerChoices: ["Naruto Uzumaki", "Sasuke Uchiha", "Sakura Haruno", "Shikamaru Nara"],
-      correctAnswer: "Shikamaru Nara"
+      name: "Who founded the Hidden Leaf Village alongside Hashirama Senju?",
+      answerChoices: ["Madara Uchiha", "Tobirama Senju", "Hiruzen Sarutobi", "Minato Namikaze"],
+      correctAnswer: "Madara Uchiha"
     },
-
     {
       name: "What is the name of Kakashi Hatake's father?",
       answerChoices: ["Sakumo Hatake", "Minato Namikaze", "Jiraiya", "Hiruzen Sarutobi"],
@@ -298,16 +297,17 @@ const advancedQuiz = {
     },
 
     {
-      name: "Who was the first jinchuriki of the Ten-Tails?",
-      answerChoices: ["Obito Uchiha", "Madara Uchiha", "Hagoromo Otsutsuki", "Kaguya Otsutsuki"],
-      correctAnswer: "Kaguya Otsutsuki"
+      name: "What is the true identity of the masked man who initially posed as Madara Uchiha?",
+      answerChoices: ["Obito Uchiha", "Zetsu", "Itachi Uchiha", "Kabuto Yakushi"],
+      correctAnswer: "Obito Uchiha"
     },
 
     {
-      name: "Who unlocked the Mangekyou Sharingan first?",
+      name: "Who originally unlocked the Mangekyou Sharingan?",
       answerChoices: ["Madara Uchiha", "Izuna Uchiha", "Itachi Uchiha", "Obito Uchiha"],
       correctAnswer: "Madara Uchiha"
     },
+    
 
     {
       name: "What was the outcome of the battle between Hashirama and Madara at the Valley of the End?",
@@ -328,9 +328,9 @@ const advancedQuiz = {
     },
 
     {
-      name: "What is the first step to unlock Sage of Six Paths Mode?",
-      answerChoices: ["Obtaining the Rinnegan", "Mastering Tailed Beast Chakra", "Sage Mode mastery", "Making contact with Hagoromo Otsutsuki"],
-      correctAnswer: "Making contact with Hagoromo Otsutsuki"
+      name: "What must Naruto do initially to unlock the Sage of Six Paths Mode?",
+      answerChoices: ["Gain the trust of Kurama", "Obtain Hagoromo's chakra", "Learn Sage Mode", "Defeat Madara Uchiha"],
+      correctAnswer: "Obtain Hagoromo's chakra"
     },
 
     {
@@ -364,11 +364,11 @@ const advancedQuiz = {
     },
 
     {
-      name: "Who was the first person to be resurrected using the Edo Tensei?",
+      name: "Who was initially resurrected using the Edo Tensei?",
       answerChoices: ["Hashirama Senju", "Madara Uchiha", "Hiruzen Sarutobi", "Tobirama Senju"],
       correctAnswer: "Hashirama Senju"
     },
-
+    
     {
       name: "Who fought Madara Uchiha before Naruto and Sasuke?",
       answerChoices: ["The Five Kage", "Kakashi and Gai", "Tsunade and Jiraiya", "Minato and Obito"],
