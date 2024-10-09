@@ -134,6 +134,7 @@ window.addEventListener("load", startQuiz);
 getDOMElements().buttonEl.addEventListener("click", submitAnswerChoice);
 
 function startQuiz() {
+  createDifficultyButtons()
   currentQuizQuestion(getDOMElements().questionEl);
   updateQuestionTracker();
 }
@@ -303,3 +304,35 @@ function updateQuestionTracker() {
     let questionTrackerEl = getDOMElements().questionTrackerEl;
     questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
 }
+
+
+function createDifficultyButtons() {
+  let buttonContainer = document.createElement("div");
+  let beginnerBtn = document.createElement("button");
+  let intermediateBtn = document.createElement("button");
+  let advancedBtn = document.createElement("button");
+
+  beginnerBtn.textContent = "Beginner Level";
+  beginnerBtn.classList.add("btn-difficulty");
+  beginnerBtn.id = "beginner-btn"
+
+  intermediateBtn.textContent = "Intermediate Level";
+  intermediateBtn.classList.add("btn-difficulty");
+  intermediateBtn.id = "intermediate-btn"
+
+
+
+  advancedBtn.textContent = "Advanced Level";
+  advancedBtn.classList.add("btn-difficulty");
+  advancedBtn.id = "advanced-btn";
+
+  let buttons = [beginnerBtn, intermediateBtn, advancedBtn];
+
+
+  for (let i = 0; i < buttons.length; i++ ) {
+    quizEl.insertBefore(buttons[i], getDOMElements().questionEl);
+  }
+
+  return {beginnerBtn, intermediateBtn, advancedBtn};
+}
+
