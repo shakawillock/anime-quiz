@@ -391,10 +391,6 @@ const advancedQuiz = {
 
 window.addEventListener("load", startQuiz);
 
-// getDOMElements().buttonEl.addEventListener("click", function() {
-//   submitAnswerChoice();
-// });
-
 function startQuiz() {
   hideDOMElements()
 
@@ -585,8 +581,6 @@ function restartQuiz() {
  createDifficultyButtons().beginnerBtn
  currentQuizQuestion(getDOMElements().questionEl, "");
 
-
-
  showDifficultyButtons();
  startQuiz();
 }
@@ -614,7 +608,6 @@ function updateQuestionTracker() {
     questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
 }
 
-
 function createDifficultyButtons() {
   let beginnerBtn = document.createElement("button");
   let intermediateBtn = document.createElement("button");
@@ -627,8 +620,6 @@ function createDifficultyButtons() {
   intermediateBtn.textContent = "Intermediate Level";
   intermediateBtn.className = "btn-difficulty";
   intermediateBtn.id = "intermediate-btn"
-
-
 
   advancedBtn.textContent = "Advanced Level";
   advancedBtn.className = "btn-difficulty";
