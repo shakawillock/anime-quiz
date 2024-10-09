@@ -366,7 +366,7 @@ const advancedQuiz = {
     {
       name: "Who was initially resurrected using the Edo Tensei?",
       answerChoices: ["Hashirama Senju", "Madara Uchiha", "Hiruzen Sarutobi", "Tobirama Senju"],
-      correctAnswer: "Hashirama Senju"
+      correctAnswer: "Madara Uchiha"
     },
     
     {
