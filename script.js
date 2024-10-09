@@ -663,6 +663,6 @@ function hideDifficultyButtons() {
 
 function showDifficultyButtons() {
   for (let i = 0; i < difficultyButtons.length; i++) {
-    difficultyButtons[i].style.display = "inline";
+    difficultyButtons[i].style.display = "";
   }
 }
