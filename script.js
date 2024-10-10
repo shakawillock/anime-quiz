@@ -8,14 +8,12 @@ const intermediateBtn = createDifficultyButtons().intermediateBtn;
 const advancedBtn = createDifficultyButtons().advancedBtn;
 
 const difficultyButtons = [beginnerBtn, intermediateBtn, advancedBtn];
-
-let beginnerQuizActive = false;
-let intermediateQuizActive = false;
-let advancedQuizActive = false;
+const nextQuestionBtn = createNextQuestionButton();
 
 let currentIndex = 0;
 let questionNumber = 1;
 let score = 0;
+let quizDifficulty;
 
 const beginnerQuiz = {
   questions: [
@@ -400,7 +398,8 @@ function startQuiz() {
 }
 
 beginnerBtn.addEventListener("click", function() {
-  hideDifficultyButtons()
+  quizDifficulty = setQuiz("beginner");
+  hideDifficultyButtons();
   showDOMElements();
   currentQuizQuestion(getDOMElements().questionEl, beginnerQuiz);
 
@@ -412,7 +411,8 @@ beginnerBtn.addEventListener("click", function() {
 });
 
 intermediateBtn.addEventListener("click", function() {
-  hideDifficultyButtons()
+  quizDifficulty = setQuiz("intermediate");
+  hideDifficultyButtons();
   showDOMElements();
   currentQuizQuestion(getDOMElements().questionEl, intermediateQuiz);
 
@@ -424,7 +424,8 @@ intermediateBtn.addEventListener("click", function() {
 });
 
 advancedBtn.addEventListener("click", function() {
-  hideDifficultyButtons()
+  quizDifficulty = setQuiz("advanced");
+  hideDifficultyButtons();
   showDOMElements();
   currentQuizQuestion(getDOMElements().questionEl, advancedQuiz);
 
@@ -435,42 +436,42 @@ advancedBtn.addEventListener("click", function() {
   updateQuestionTracker();
 })
 
-function currentQuizQuestion(questionName, quizLevel) {
-  if (quizLevel !== "") {
+function currentQuizQuestion(questionName) {
+  let quiz = quizDifficulty;
+
+  if (quiz !== "") {
     let options = getDOMElements().options;
 
-    if (currentIndex <= quizLevel.questions.length - 1) {
-      questionName.textContent = quizLevel.questions[currentIndex].name;
+    if (currentIndex <= quiz.questions.length - 1) {
+      questionName.textContent = quiz.questions[currentIndex].name;
   
       for (let i = 0; i < options.length; i++) {
-        options[i].textContent = quizLevel.questions[currentIndex].answerChoices[i];
-        radioButtons[i].value = quizLevel.questions[currentIndex].answerChoices[i];
+        options[i].textContent = quiz.questions[currentIndex].answerChoices[i];
+        radioButtons[i].value = quiz.questions[currentIndex].answerChoices[i];
         radioButtons[i].checked = false;
        }
     }
   } else {
-    hideDOMElements()
+    hideDOMElements();
   }
 }
 
 function submitAnswerChoice(quizLevel) {
   let userAnswer;
-
   let radioButtonSelected = false;
 
   for (let i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
       radioButtonSelected = true
       userAnswer = radioButtons[i].value;
-      radioButtons[i].checked = false;
+      radioButtons[i].checked = true;
+    } else {
+      radioButtons[i].disabled = true;
     }
   }
 
   if (radioButtonSelected) {
     checkAnswer(userAnswer, quizLevel);
-    updateQuestionNumber();
-    updateIndexNumber(quizLevel);
-    currentQuizQuestion(getDOMElements().questionEl, quizLevel);
   } else {
       showErrorMessage();
   }
@@ -485,19 +486,50 @@ function updateQuestionNumber() {
   }
 }
 
-function updateIndexNumber(quizLevel) {
-  if (currentIndex <= quizLevel.questions.length - 1) {
+function updateIndexNumber() {
+  let quiz = quizDifficulty;
+
+  if (currentIndex <= quiz.questions.length - 1) {
     currentIndex++;
   }
 }
 
 function checkAnswer(userAnswer, quizLevel) {
+  let message = "";
+  let messageColor = "";
+
   if (userAnswer === quizLevel.questions[currentIndex].correctAnswer) {
     updateScore();
+    message = `Correct! The answer was ${quizLevel.questions[currentIndex].correctAnswer}`;
+    messageColor = "#4CAF50";
+  } else {
+    message = `Incorrect: The correct answer was ${quizLevel.questions[currentIndex].correctAnswer}`;
+    messageColor = "#FF5252";
   }
+
+  setFeedbackMessage(message, messageColor);
+
+    // Temporary 
+    getDOMElements().buttonEl.style.display = "none";
+
+    const btnContainer = document.getElementById("btn-container");
+    btnContainer.appendChild(nextQuestionBtn);
+    
+    if (nextQuestionBtn.style.display === "none") {
+      nextQuestionBtn.style.display = "block";
+    }
+
+    nextQuestionBtn.addEventListener("click", goToNextQuestion);
+    // Temporary 
 }
 
 function showErrorMessage() {
+  // Temporary 
+  for (let i = 0; i < radioButtons.length; i++) {
+    radioButtons[i].disabled = false;
+  }
+  // Temporary
+
   const errorMessage = document.getElementById("error-message");
   errorMessage.textContent = "Please select a choice first!";
 
@@ -579,8 +611,6 @@ function restartQuiz() {
   score = 0;
 
  createDifficultyButtons().beginnerBtn
- currentQuizQuestion(getDOMElements().questionEl, "");
-
  showDifficultyButtons();
  startQuiz();
 }
@@ -655,5 +685,55 @@ function hideDifficultyButtons() {
 function showDifficultyButtons() {
   for (let i = 0; i < difficultyButtons.length; i++) {
     difficultyButtons[i].style.display = "";
+  }
+}
+
+function createNextQuestionButton() {
+  let button = document.createElement("button");
+  button.id = "next-question-btn";
+  button.className = "text-color-white";
+  button.textContent = "Next Question";
+  return button;
+}
+
+function goToNextQuestion() {
+  resetRadioButtons();
+  updateQuestionNumber();
+  updateIndexNumber();
+
+ if (currentIndex < 20) {
+    currentQuizQuestion(getDOMElements().questionEl);
+    setFeedbackMessage("");
+    getDOMElements().buttonEl.style.display = "block";
+  }
+
+  nextQuestionBtn.style.display = "none";
+}
+
+function setQuiz(difficultyLevel) {
+  if (difficultyLevel === "beginner") {
+    return beginnerQuiz
+  } else if (difficultyLevel === "intermediate") {
+    return intermediateQuiz;
+  } else {
+    return advancedQuiz
+  }
+}
+
+function setFeedbackMessage(message, color) {
+  const feedback = document.getElementById("feedback");
+
+  if (message) {
+    feedback.textContent = message;
+    feedback.style.color = color;
+  } else if (message === "") {
+    feedback.textContent = "";
+    feedback.style.color = "";
+  }
+}
+
+function resetRadioButtons() {
+  for (let i = 0; i < radioButtons.length; i++) {
+    radioButtons[i].disabled = false;
   }
 }
