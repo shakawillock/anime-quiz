@@ -267,7 +267,7 @@ const advancedQuiz = {
     {
       name: "What is the original name of Madara's Moon Eye Plan?",
       answerChoices: ["Infinite Tsukuyomi", "Project Tsuki no Me", "Project Infinite Moon", "Eye of the Moon Plan"],
-      correctAnswer: "Project Tsuki no Me"
+      correctAnswer: "Infinite Tsukuyomi"
     },
 
     {
@@ -302,8 +302,8 @@ const advancedQuiz = {
 
     {
       name: "Who originally unlocked the Mangekyou Sharingan?",
-      answerChoices: ["Madara Uchiha", "Izuna Uchiha", "Itachi Uchiha", "Obito Uchiha"],
-      correctAnswer: "Madara Uchiha"
+      answerChoices: ["Madara Uchiha", "Indra Otsutsuki", "Itachi Uchiha", "Obito Uchiha"],
+      correctAnswer: "Indra Otsutsuki"
     },
     
 
@@ -340,7 +340,7 @@ const advancedQuiz = {
     {
       name: "What form of the Susanoo did Sasuke awaken after receiving the Rinnegan?",
       answerChoices: ["Perfect Susanoo", "Indra’s Arrow", "Complete Body Susanoo", "Flame Control Susanoo"],
-      correctAnswer: "Complete Body Susanoo"
+      correctAnswer: "Perfect Susanoo"
     },
 
     {
