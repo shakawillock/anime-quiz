@@ -8,6 +8,8 @@ Test your ninja knowledge with this fun and interactive **Naruto Quiz**! Answer 
 - Dynamic feedback on your score
 - Score tracking with personalized messages based on performance
 - Responsive design
+- Next Question button to move between questions
+- Ability to review which questions were answered correctly or incorrectly
 
 ## How to Play
 
