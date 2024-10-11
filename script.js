@@ -1,7 +1,7 @@
 const quizEl = document.getElementById("quiz");
 const quizElHtml = quizEl.innerHTML;
 const inputWrapper = document.getElementsByClassName("input-wrapper");
-const radioButtons = getDOMElements().radioButtons;
+const radioButtons = getDomElements().radioButtons;
 
 const beginnerBtn = createDifficultyButtons().beginnerBtn;
 const intermediateBtn = createDifficultyButtons().intermediateBtn;
@@ -390,21 +390,21 @@ const advancedQuiz = {
 window.addEventListener("load", startQuiz);
 
 function startQuiz() {
-  hideDOMElements()
+  hideDomElements();
 
   for (let i = 0; i < difficultyButtons.length; i++) {
-    quizEl.insertBefore(difficultyButtons[i], getDOMElements().questionEl);
+    quizEl.insertBefore(difficultyButtons[i], getDomElements().questionName);
   }
 }
 
 beginnerBtn.addEventListener("click", function() {
   quizDifficulty = setQuiz("beginner");
   hideDifficultyButtons();
-  showDOMElements();
-  currentQuizQuestion(getDOMElements().questionEl, beginnerQuiz);
+  showDomElements();
+  currentQuizQuestion(getDomElements().questionName);
 
-  getDOMElements().buttonEl.addEventListener("click", function() {
-    submitAnswerChoice(beginnerQuiz);
+  getDomElements().submitBtn.addEventListener("click", function() {
+    submitAnswerChoice(quizDifficulty);
   });
 
   updateQuestionTracker();
@@ -413,11 +413,11 @@ beginnerBtn.addEventListener("click", function() {
 intermediateBtn.addEventListener("click", function() {
   quizDifficulty = setQuiz("intermediate");
   hideDifficultyButtons();
-  showDOMElements();
-  currentQuizQuestion(getDOMElements().questionEl, intermediateQuiz);
+  showDomElements();
+  currentQuizQuestion(getDomElements().questionName);
 
-  getDOMElements().buttonEl.addEventListener("click", function() {
-    submitAnswerChoice(intermediateQuiz);
+  getDomElements().submitBtn.addEventListener("click", function() {
+    submitAnswerChoice(quizDifficulty);
   });
 
   updateQuestionTracker();
@@ -426,11 +426,11 @@ intermediateBtn.addEventListener("click", function() {
 advancedBtn.addEventListener("click", function() {
   quizDifficulty = setQuiz("advanced");
   hideDifficultyButtons();
-  showDOMElements();
-  currentQuizQuestion(getDOMElements().questionEl, advancedQuiz);
+  showDomElements();
+  currentQuizQuestion(getDomElements().questionName);
 
-  getDOMElements().buttonEl.addEventListener("click", function() {
-    submitAnswerChoice(advancedQuiz);
+  getDomElements().submitBtn.addEventListener("click", function() {
+    submitAnswerChoice(quizDifficulty);
   });
 
   updateQuestionTracker();
@@ -440,7 +440,7 @@ function currentQuizQuestion(questionName) {
   let quiz = quizDifficulty;
 
   if (quiz !== "") {
-    let options = getDOMElements().options;
+    let options = getDomElements().options;
 
     if (currentIndex <= quiz.questions.length - 1) {
       questionName.textContent = quiz.questions[currentIndex].name;
@@ -452,7 +452,7 @@ function currentQuizQuestion(questionName) {
        }
     }
   } else {
-    hideDOMElements();
+    hideDomElements();
   }
 }
 
@@ -494,6 +494,11 @@ function updateIndexNumber() {
   }
 }
 
+function updateQuestionTracker() {
+  let questionTrackerEl = getDomElements().questionTrackerEl;
+  questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
+}
+
 function checkAnswer(userAnswer, quizLevel) {
   let message = "";
   let messageColor = "";
@@ -508,27 +513,18 @@ function checkAnswer(userAnswer, quizLevel) {
   }
 
   setFeedbackMessage(message, messageColor);
+  hideSubmitButton();
+  showNextButton();
 
-    // Temporary 
-    getDOMElements().buttonEl.style.display = "none";
+  if (nextQuestionBtn.style.display === "none") {
+    nextQuestionBtn.style.display = "block";
+  }
 
-    const btnContainer = document.getElementById("btn-container");
-    btnContainer.appendChild(nextQuestionBtn);
-    
-    if (nextQuestionBtn.style.display === "none") {
-      nextQuestionBtn.style.display = "block";
-    }
-
-    nextQuestionBtn.addEventListener("click", goToNextQuestion);
-    // Temporary 
+  nextQuestionBtn.addEventListener("click", goToNextQuestion);
 }
 
 function showErrorMessage() {
-  // Temporary 
-  for (let i = 0; i < radioButtons.length; i++) {
-    radioButtons[i].disabled = false;
-  }
-  // Temporary
+  resetRadioButtons();
 
   const errorMessage = document.getElementById("error-message");
   errorMessage.textContent = "Please select a choice first!";
@@ -615,9 +611,9 @@ function restartQuiz() {
  startQuiz();
 }
 
-function getDOMElements() {
+function getDomElements() {
   const quizEl = document.getElementById("quiz");
-  const questionEl = document.getElementById("question");
+  const questionName = document.getElementById("question");
   const questionTrackerEl = document.getElementById("question-tracker");
   const optionOne = document.getElementById("option-one");
   const optionTwo = document.getElementById("option-two");
@@ -628,14 +624,9 @@ function getDOMElements() {
   options.push(optionOne, optionTwo, optionThree, optionFour)
 
   const radioButtons = document.getElementsByName("naruto");
-  const buttonEl = document.getElementById("btn-submit");
+  const submitBtn = document.getElementById("btn-submit");
 
-  return {quizEl, questionEl, questionTrackerEl, options, radioButtons, buttonEl}
-}
-
-function updateQuestionTracker() {
-    let questionTrackerEl = getDOMElements().questionTrackerEl;
-    questionTrackerEl.textContent = `Question ${questionNumber} of 20`;
+  return {quizEl, questionName, questionTrackerEl, options, radioButtons, submitBtn}
 }
 
 function createDifficultyButtons() {
@@ -660,20 +651,20 @@ function createDifficultyButtons() {
   return {beginnerBtn, intermediateBtn, advancedBtn, buttons};
 }
 
-function hideDOMElements() {
+function hideDomElements() {
   for (let i = 0; i < inputWrapper.length; i++) {
     inputWrapper[i].style.display = "none";
   }
 
-  getDOMElements().buttonEl.style.display = "none";
+  hideSubmitButton();
 }
 
-function showDOMElements() {
+function showDomElements() {
   for (let i = 0; i < inputWrapper.length; i++) {
     inputWrapper[i].style.display = "block";
   }
 
-  getDOMElements().buttonEl.style.display = "block";
+  showSubmitButton();
 }
 
 function hideDifficultyButtons() {
@@ -688,6 +679,14 @@ function showDifficultyButtons() {
   }
 }
 
+function hideSubmitButton() {
+  getDomElements().submitBtn.style.display = "none";
+}
+
+function showSubmitButton() {
+  getDomElements().submitBtn.style.display = "block";
+}
+
 function createNextQuestionButton() {
   let button = document.createElement("button");
   button.id = "next-question-btn";
@@ -696,15 +695,20 @@ function createNextQuestionButton() {
   return button;
 }
 
+function showNextButton() {
+  const btnContainer = document.getElementById("btn-container");
+  btnContainer.appendChild(nextQuestionBtn);
+}
+
 function goToNextQuestion() {
   resetRadioButtons();
   updateQuestionNumber();
   updateIndexNumber();
 
  if (currentIndex < 20) {
-    currentQuizQuestion(getDOMElements().questionEl);
+    currentQuizQuestion(getDomElements().questionName);
     setFeedbackMessage("");
-    getDOMElements().buttonEl.style.display = "block";
+    showSubmitButton();
   }
 
   nextQuestionBtn.style.display = "none";
