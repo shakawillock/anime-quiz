@@ -635,15 +635,15 @@ function createDifficultyButtons() {
   let advancedBtn = document.createElement("button");
 
   beginnerBtn.textContent = "Beginner Level";
-  beginnerBtn.className = "btn-difficulty";
+  beginnerBtn.classList.add("btn-difficulty", "text-color-white");
   beginnerBtn.id = "beginner-btn"
 
   intermediateBtn.textContent = "Intermediate Level";
-  intermediateBtn.className = "btn-difficulty";
+  intermediateBtn.classList.add("btn-difficulty", "text-color-white");
   intermediateBtn.id = "intermediate-btn"
 
   advancedBtn.textContent = "Advanced Level";
-  advancedBtn.className = "btn-difficulty";
+  advancedBtn.classList.add("btn-difficulty", "text-color-white");
   advancedBtn.id = "advanced-btn";
 
   let buttons = [beginnerBtn, intermediateBtn, advancedBtn];
@@ -720,7 +720,7 @@ function setQuiz(difficultyLevel) {
   } else if (difficultyLevel === "intermediate") {
     return intermediateQuiz;
   } else {
-    return advancedQuiz
+    return advancedQuiz;
   }
 }
 
